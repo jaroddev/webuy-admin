@@ -1,0 +1,39 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.univtours.webuy"
+    },
+    "jhipsterVersion": "6.9.0",
+    "applicationType": "monolith",
+    "baseName": "WeBuy",
+    "packageName": "com.univtours.webuy",
+    "packageFolder": "com/univtours/webuy",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "no",
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "NzZmYjVkMzg3ZTc1Yjg0NjhmZTMwOTQ4OGIyMzk5YzQ4MjFmY2UxOWNhODU4MDRhOTY5NDRhZGU1MDgzNGY3ZDVmMTkzMDE0YzE5N2NmMDU2NzBmYTQ0OGNiNTg4YjE4MTdhNjZmNTY0MGE3ODBjNmY5NTg0OTA3OThhN2I1Zjc=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "react",
+    "clientTheme": "pulse",
+    "clientThemeVariant": "primary",
+    "creationTimestamp": 1590535936796,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false,
+    "blueprints": []
+  }
+}
