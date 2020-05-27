@@ -24,7 +24,12 @@ export const ProductDetail = (props: IProductDetailProps) => {
         <h2>
           Product [<b>{productEntity.id}</b>]
         </h2>
-        <dl className="jh-entity-details"></dl>
+        <dl className="jh-entity-details">
+          <dt>
+            <span id="name">Name</span>
+          </dt>
+          <dd>{productEntity.name}</dd>
+        </dl>
         <Button tag={Link} to="/product" replace color="info">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>
         </Button>

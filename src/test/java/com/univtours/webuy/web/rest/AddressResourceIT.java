@@ -29,6 +29,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 public class AddressResourceIT {
 
+    private static final String DEFAULT_CITY = "AAAAAAAAAA";
+    private static final String UPDATED_CITY = "BBBBBBBBBB";
+
+    private static final String DEFAULT_POSTAL_CODE = "AAAAAAAAAA";
+    private static final String UPDATED_POSTAL_CODE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_DEPARTMENT = "AAAAAAAAAA";
+    private static final String UPDATED_DEPARTMENT = "BBBBBBBBBB";
+
     @Autowired
     private AddressRepository addressRepository;
 
@@ -47,7 +56,10 @@ public class AddressResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Address createEntity(EntityManager em) {
-        Address address = new Address();
+        Address address = new Address()
+            .city(DEFAULT_CITY)
+            .postalCode(DEFAULT_POSTAL_CODE)
+            .department(DEFAULT_DEPARTMENT);
         return address;
     }
     /**
@@ -57,7 +69,10 @@ public class AddressResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Address createUpdatedEntity(EntityManager em) {
-        Address address = new Address();
+        Address address = new Address()
+            .city(UPDATED_CITY)
+            .postalCode(UPDATED_POSTAL_CODE)
+            .department(UPDATED_DEPARTMENT);
         return address;
     }
 
@@ -80,6 +95,9 @@ public class AddressResourceIT {
         List<Address> addressList = addressRepository.findAll();
         assertThat(addressList).hasSize(databaseSizeBeforeCreate + 1);
         Address testAddress = addressList.get(addressList.size() - 1);
+        assertThat(testAddress.getCity()).isEqualTo(DEFAULT_CITY);
+        assertThat(testAddress.getPostalCode()).isEqualTo(DEFAULT_POSTAL_CODE);
+        assertThat(testAddress.getDepartment()).isEqualTo(DEFAULT_DEPARTMENT);
     }
 
     @Test
@@ -112,7 +130,10 @@ public class AddressResourceIT {
         restAddressMockMvc.perform(get("/api/addresses?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(address.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(address.getId().intValue())))
+            .andExpect(jsonPath("$.[*].city").value(hasItem(DEFAULT_CITY)))
+            .andExpect(jsonPath("$.[*].postalCode").value(hasItem(DEFAULT_POSTAL_CODE)))
+            .andExpect(jsonPath("$.[*].department").value(hasItem(DEFAULT_DEPARTMENT)));
     }
     
     @Test
@@ -125,7 +146,10 @@ public class AddressResourceIT {
         restAddressMockMvc.perform(get("/api/addresses/{id}", address.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(address.getId().intValue()));
+            .andExpect(jsonPath("$.id").value(address.getId().intValue()))
+            .andExpect(jsonPath("$.city").value(DEFAULT_CITY))
+            .andExpect(jsonPath("$.postalCode").value(DEFAULT_POSTAL_CODE))
+            .andExpect(jsonPath("$.department").value(DEFAULT_DEPARTMENT));
     }
     @Test
     @Transactional
@@ -147,6 +171,10 @@ public class AddressResourceIT {
         Address updatedAddress = addressRepository.findById(address.getId()).get();
         // Disconnect from session so that the updates on updatedAddress are not directly saved in db
         em.detach(updatedAddress);
+        updatedAddress
+            .city(UPDATED_CITY)
+            .postalCode(UPDATED_POSTAL_CODE)
+            .department(UPDATED_DEPARTMENT);
 
         restAddressMockMvc.perform(put("/api/addresses")
             .contentType(MediaType.APPLICATION_JSON)
@@ -157,6 +185,9 @@ public class AddressResourceIT {
         List<Address> addressList = addressRepository.findAll();
         assertThat(addressList).hasSize(databaseSizeBeforeUpdate);
         Address testAddress = addressList.get(addressList.size() - 1);
+        assertThat(testAddress.getCity()).isEqualTo(UPDATED_CITY);
+        assertThat(testAddress.getPostalCode()).isEqualTo(UPDATED_POSTAL_CODE);
+        assertThat(testAddress.getDepartment()).isEqualTo(UPDATED_DEPARTMENT);
     }
 
     @Test

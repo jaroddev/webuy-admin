@@ -18,6 +18,15 @@ public class Address implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "postal_code")
+    private String postalCode;
+
+    @Column(name = "department")
+    private String department;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -25,6 +34,45 @@ public class Address implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public Address city(String city) {
+        this.city = city;
+        return this;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public Address postalCode(String postalCode) {
+        this.postalCode = postalCode;
+        return this;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public Address department(String department) {
+        this.department = department;
+        return this;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
@@ -49,6 +97,9 @@ public class Address implements Serializable {
     public String toString() {
         return "Address{" +
             "id=" + getId() +
+            ", city='" + getCity() + "'" +
+            ", postalCode='" + getPostalCode() + "'" +
+            ", department='" + getDepartment() + "'" +
             "}";
     }
 }

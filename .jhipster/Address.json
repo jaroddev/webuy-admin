@@ -2,7 +2,20 @@
   "fluentMethods": true,
   "clientRootFolder": "",
   "relationships": [],
-  "fields": [],
+  "fields": [
+    {
+      "fieldName": "city",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "postalCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "department",
+      "fieldType": "String"
+    }
+  ],
   "changelogDate": "20200527014940",
   "dto": "no",
   "searchEngine": false,

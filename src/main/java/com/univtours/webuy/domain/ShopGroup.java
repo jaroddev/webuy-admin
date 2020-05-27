@@ -18,6 +18,9 @@ public class ShopGroup implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
+    private String name;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -25,6 +28,19 @@ public class ShopGroup implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ShopGroup name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
@@ -49,6 +65,7 @@ public class ShopGroup implements Serializable {
     public String toString() {
         return "ShopGroup{" +
             "id=" + getId() +
+            ", name='" + getName() + "'" +
             "}";
     }
 }

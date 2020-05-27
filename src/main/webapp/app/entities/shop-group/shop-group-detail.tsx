@@ -24,7 +24,12 @@ export const ShopGroupDetail = (props: IShopGroupDetailProps) => {
         <h2>
           ShopGroup [<b>{shopGroupEntity.id}</b>]
         </h2>
-        <dl className="jh-entity-details"></dl>
+        <dl className="jh-entity-details">
+          <dt>
+            <span id="name">Name</span>
+          </dt>
+          <dd>{shopGroupEntity.name}</dd>
+        </dl>
         <Button tag={Link} to="/shop-group" replace color="info">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>
         </Button>

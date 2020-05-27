@@ -94,6 +94,9 @@ export const Product = (props: IProductProps) => {
                   <th className="hand" onClick={sort('id')}>
                     ID <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('name')}>
+                    Name <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th />
                 </tr>
               </thead>
@@ -105,6 +108,7 @@ export const Product = (props: IProductProps) => {
                         {product.id}
                       </Button>
                     </td>
+                    <td>{product.name}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${product.id}`} color="info" size="sm">

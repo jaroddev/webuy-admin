@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
@@ -71,6 +71,24 @@ export const AddressUpdate = (props: IAddressUpdateProps) => {
                   <AvInput id="address-id" type="text" className="form-control" name="id" required readOnly />
                 </AvGroup>
               ) : null}
+              <AvGroup>
+                <Label id="cityLabel" for="address-city">
+                  City
+                </Label>
+                <AvField id="address-city" type="text" name="city" />
+              </AvGroup>
+              <AvGroup>
+                <Label id="postalCodeLabel" for="address-postalCode">
+                  Postal Code
+                </Label>
+                <AvField id="address-postalCode" type="text" name="postalCode" />
+              </AvGroup>
+              <AvGroup>
+                <Label id="departmentLabel" for="address-department">
+                  Department
+                </Label>
+                <AvField id="address-department" type="text" name="department" />
+              </AvGroup>
               <Button tag={Link} id="cancel-save" to="/address" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

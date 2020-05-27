@@ -94,6 +94,9 @@ export const Offer = (props: IOfferProps) => {
                   <th className="hand" onClick={sort('id')}>
                     ID <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th>
+                    Product <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th />
                 </tr>
               </thead>
@@ -105,6 +108,7 @@ export const Offer = (props: IOfferProps) => {
                         {offer.id}
                       </Button>
                     </td>
+                    <td>{offer.product ? <Link to={`product/${offer.product.id}`}>{offer.product.name}</Link> : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${offer.id}`} color="info" size="sm">

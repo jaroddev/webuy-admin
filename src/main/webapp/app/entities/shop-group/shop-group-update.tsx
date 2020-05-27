@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
@@ -71,6 +71,12 @@ export const ShopGroupUpdate = (props: IShopGroupUpdateProps) => {
                   <AvInput id="shop-group-id" type="text" className="form-control" name="id" required readOnly />
                 </AvGroup>
               ) : null}
+              <AvGroup>
+                <Label id="nameLabel" for="shop-group-name">
+                  Name
+                </Label>
+                <AvField id="shop-group-name" type="text" name="name" />
+              </AvGroup>
               <Button tag={Link} id="cancel-save" to="/shop-group" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

@@ -24,7 +24,20 @@ export const AddressDetail = (props: IAddressDetailProps) => {
         <h2>
           Address [<b>{addressEntity.id}</b>]
         </h2>
-        <dl className="jh-entity-details"></dl>
+        <dl className="jh-entity-details">
+          <dt>
+            <span id="city">City</span>
+          </dt>
+          <dd>{addressEntity.city}</dd>
+          <dt>
+            <span id="postalCode">Postal Code</span>
+          </dt>
+          <dd>{addressEntity.postalCode}</dd>
+          <dt>
+            <span id="department">Department</span>
+          </dt>
+          <dd>{addressEntity.department}</dd>
+        </dl>
         <Button tag={Link} to="/address" replace color="info">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>
         </Button>

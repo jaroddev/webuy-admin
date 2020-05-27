@@ -33,6 +33,7 @@ export const Shop = (props: IShopProps) => {
             <thead>
               <tr>
                 <th>ID</th>
+                <th>Address</th>
                 <th />
               </tr>
             </thead>
@@ -44,6 +45,7 @@ export const Shop = (props: IShopProps) => {
                       {shop.id}
                     </Button>
                   </td>
+                  <td>{shop.address ? <Link to={`address/${shop.address.id}`}>{shop.address.city}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${shop.id}`} color="info" size="sm">

@@ -1,7 +1,15 @@
 {
   "fluentMethods": true,
   "clientRootFolder": "",
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipName": "product",
+      "otherEntityName": "product",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "name",
+      "otherEntityRelationshipName": "offer"
+    }
+  ],
   "fields": [],
   "changelogDate": "20200527022802",
   "dto": "no",

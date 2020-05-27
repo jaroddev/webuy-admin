@@ -24,7 +24,10 @@ export const ShopDetail = (props: IShopDetailProps) => {
         <h2>
           Shop [<b>{shopEntity.id}</b>]
         </h2>
-        <dl className="jh-entity-details"></dl>
+        <dl className="jh-entity-details">
+          <dt>Address</dt>
+          <dd>{shopEntity.address ? shopEntity.address.city : ''}</dd>
+        </dl>
         <Button tag={Link} to="/shop" replace color="info">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>
         </Button>

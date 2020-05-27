@@ -33,6 +33,7 @@ export const ShopGroup = (props: IShopGroupProps) => {
             <thead>
               <tr>
                 <th>ID</th>
+                <th>Name</th>
                 <th />
               </tr>
             </thead>
@@ -44,6 +45,7 @@ export const ShopGroup = (props: IShopGroupProps) => {
                       {shopGroup.id}
                     </Button>
                   </td>
+                  <td>{shopGroup.name}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${shopGroup.id}`} color="info" size="sm">

@@ -29,6 +29,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 public class ProductResourceIT {
 
+    private static final String DEFAULT_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_NAME = "BBBBBBBBBB";
+
     @Autowired
     private ProductRepository productRepository;
 
@@ -47,7 +50,8 @@ public class ProductResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Product createEntity(EntityManager em) {
-        Product product = new Product();
+        Product product = new Product()
+            .name(DEFAULT_NAME);
         return product;
     }
     /**
@@ -57,7 +61,8 @@ public class ProductResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Product createUpdatedEntity(EntityManager em) {
-        Product product = new Product();
+        Product product = new Product()
+            .name(UPDATED_NAME);
         return product;
     }
 
@@ -80,6 +85,7 @@ public class ProductResourceIT {
         List<Product> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeCreate + 1);
         Product testProduct = productList.get(productList.size() - 1);
+        assertThat(testProduct.getName()).isEqualTo(DEFAULT_NAME);
     }
 
     @Test
@@ -112,7 +118,8 @@ public class ProductResourceIT {
         restProductMockMvc.perform(get("/api/products?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(product.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(product.getId().intValue())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
     
     @Test
@@ -125,7 +132,8 @@ public class ProductResourceIT {
         restProductMockMvc.perform(get("/api/products/{id}", product.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(product.getId().intValue()));
+            .andExpect(jsonPath("$.id").value(product.getId().intValue()))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
     }
     @Test
     @Transactional
@@ -147,6 +155,8 @@ public class ProductResourceIT {
         Product updatedProduct = productRepository.findById(product.getId()).get();
         // Disconnect from session so that the updates on updatedProduct are not directly saved in db
         em.detach(updatedProduct);
+        updatedProduct
+            .name(UPDATED_NAME);
 
         restProductMockMvc.perform(put("/api/products")
             .contentType(MediaType.APPLICATION_JSON)
@@ -157,6 +167,7 @@ public class ProductResourceIT {
         List<Product> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeUpdate);
         Product testProduct = productList.get(productList.size() - 1);
+        assertThat(testProduct.getName()).isEqualTo(UPDATED_NAME);
     }
 
     @Test

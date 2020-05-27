@@ -24,7 +24,10 @@ export const OfferDetail = (props: IOfferDetailProps) => {
         <h2>
           Offer [<b>{offerEntity.id}</b>]
         </h2>
-        <dl className="jh-entity-details"></dl>
+        <dl className="jh-entity-details">
+          <dt>Product</dt>
+          <dd>{offerEntity.product ? offerEntity.product.name : ''}</dd>
+        </dl>
         <Button tag={Link} to="/offer" replace color="info">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>
         </Button>

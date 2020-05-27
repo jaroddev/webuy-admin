@@ -29,6 +29,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 public class ShopGroupResourceIT {
 
+    private static final String DEFAULT_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_NAME = "BBBBBBBBBB";
+
     @Autowired
     private ShopGroupRepository shopGroupRepository;
 
@@ -47,7 +50,8 @@ public class ShopGroupResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static ShopGroup createEntity(EntityManager em) {
-        ShopGroup shopGroup = new ShopGroup();
+        ShopGroup shopGroup = new ShopGroup()
+            .name(DEFAULT_NAME);
         return shopGroup;
     }
     /**
@@ -57,7 +61,8 @@ public class ShopGroupResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static ShopGroup createUpdatedEntity(EntityManager em) {
-        ShopGroup shopGroup = new ShopGroup();
+        ShopGroup shopGroup = new ShopGroup()
+            .name(UPDATED_NAME);
         return shopGroup;
     }
 
@@ -80,6 +85,7 @@ public class ShopGroupResourceIT {
         List<ShopGroup> shopGroupList = shopGroupRepository.findAll();
         assertThat(shopGroupList).hasSize(databaseSizeBeforeCreate + 1);
         ShopGroup testShopGroup = shopGroupList.get(shopGroupList.size() - 1);
+        assertThat(testShopGroup.getName()).isEqualTo(DEFAULT_NAME);
     }
 
     @Test
@@ -112,7 +118,8 @@ public class ShopGroupResourceIT {
         restShopGroupMockMvc.perform(get("/api/shop-groups?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(shopGroup.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(shopGroup.getId().intValue())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
     
     @Test
@@ -125,7 +132,8 @@ public class ShopGroupResourceIT {
         restShopGroupMockMvc.perform(get("/api/shop-groups/{id}", shopGroup.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(shopGroup.getId().intValue()));
+            .andExpect(jsonPath("$.id").value(shopGroup.getId().intValue()))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
     }
     @Test
     @Transactional
@@ -147,6 +155,8 @@ public class ShopGroupResourceIT {
         ShopGroup updatedShopGroup = shopGroupRepository.findById(shopGroup.getId()).get();
         // Disconnect from session so that the updates on updatedShopGroup are not directly saved in db
         em.detach(updatedShopGroup);
+        updatedShopGroup
+            .name(UPDATED_NAME);
 
         restShopGroupMockMvc.perform(put("/api/shop-groups")
             .contentType(MediaType.APPLICATION_JSON)
@@ -157,6 +167,7 @@ public class ShopGroupResourceIT {
         List<ShopGroup> shopGroupList = shopGroupRepository.findAll();
         assertThat(shopGroupList).hasSize(databaseSizeBeforeUpdate);
         ShopGroup testShopGroup = shopGroupList.get(shopGroupList.size() - 1);
+        assertThat(testShopGroup.getName()).isEqualTo(UPDATED_NAME);
     }
 
     @Test

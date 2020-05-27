@@ -1,7 +1,27 @@
 {
   "fluentMethods": true,
   "clientRootFolder": "",
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipName": "address",
+      "otherEntityName": "address",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "city",
+      "otherEntityRelationshipName": "shop"
+    },
+    {
+      "relationshipName": "products",
+      "otherEntityName": "product",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": ""
+    },
+    {
+      "relationshipName": "offers",
+      "otherEntityName": "offer",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": ""
+    }
+  ],
   "fields": [],
   "changelogDate": "20200527015747",
   "dto": "no",
