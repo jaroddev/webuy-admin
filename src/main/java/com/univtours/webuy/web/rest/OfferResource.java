@@ -1,28 +1,37 @@
 package com.univtours.webuy.web.rest;
 
-import com.univtours.webuy.domain.Offer;
-import com.univtours.webuy.repository.OfferRepository;
-import com.univtours.webuy.web.rest.errors.BadRequestAlertException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
 
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
+import com.univtours.webuy.domain.Offer;
+import com.univtours.webuy.repository.OfferRepository;
+import com.univtours.webuy.security.AuthoritiesConstants;
+import com.univtours.webuy.web.rest.errors.BadRequestAlertException;
+
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.PaginationUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link com.univtours.webuy.domain.Offer}.
@@ -53,6 +62,7 @@ public class OfferResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/offers")
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Offer> createOffer(@RequestBody Offer offer) throws URISyntaxException {
         log.debug("REST request to save Offer : {}", offer);
         if (offer.getId() != null) {
@@ -74,6 +84,7 @@ public class OfferResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/offers")
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Offer> updateOffer(@RequestBody Offer offer) throws URISyntaxException {
         log.debug("REST request to update Offer : {}", offer);
         if (offer.getId() == null) {
@@ -119,6 +130,7 @@ public class OfferResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/offers/{id}")
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Void> deleteOffer(@PathVariable Long id) {
         log.debug("REST request to delete Offer : {}", id);
 

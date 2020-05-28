@@ -1,22 +1,33 @@
 package com.univtours.webuy.web.rest;
 
-import com.univtours.webuy.domain.ShopGroup;
-import com.univtours.webuy.repository.ShopGroupRepository;
-import com.univtours.webuy.web.rest.errors.BadRequestAlertException;
-
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.univtours.webuy.domain.ShopGroup;
+import com.univtours.webuy.repository.ShopGroupRepository;
+import com.univtours.webuy.security.AuthoritiesConstants;
+import com.univtours.webuy.web.rest.errors.BadRequestAlertException;
+
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link com.univtours.webuy.domain.ShopGroup}.
@@ -47,11 +58,17 @@ public class ShopGroupResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/shop-groups")
-    public ResponseEntity<ShopGroup> createShopGroup(@RequestBody ShopGroup shopGroup) throws URISyntaxException {
+    @Secured(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<ShopGroup> createShopGroup(@RequestPart ShopGroup shopGroup, @RequestPart byte[] logo) throws URISyntaxException {
         log.debug("REST request to save ShopGroup : {}", shopGroup);
         if (shopGroup.getId() != null) {
             throw new BadRequestAlertException("A new shopGroup cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        
+        if(logo == null) {
+        	throw new BadRequestAlertException("Problem with image handling", ENTITY_NAME, "no logo");
+        }
+        
         ShopGroup result = shopGroupRepository.save(shopGroup);
         return ResponseEntity.created(new URI("/api/shop-groups/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
@@ -68,6 +85,7 @@ public class ShopGroupResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/shop-groups")
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<ShopGroup> updateShopGroup(@RequestBody ShopGroup shopGroup) throws URISyntaxException {
         log.debug("REST request to update ShopGroup : {}", shopGroup);
         if (shopGroup.getId() == null) {
@@ -110,6 +128,7 @@ public class ShopGroupResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/shop-groups/{id}")
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Void> deleteShopGroup(@PathVariable Long id) {
         log.debug("REST request to delete ShopGroup : {}", id);
 
