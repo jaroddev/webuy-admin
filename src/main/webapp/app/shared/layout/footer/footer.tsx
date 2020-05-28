@@ -8,7 +8,7 @@ const Footer = props => (
   <div className="footer page-content">
     <Row>
       <Col md="12">
-        <p>Your footer</p>
+        <p>A custom footer with no class neither style, fully updated by the developper of webapp react client app</p>
       </Col>
     </Row>
   </div>

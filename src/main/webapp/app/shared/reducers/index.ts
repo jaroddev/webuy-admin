@@ -32,21 +32,6 @@ import shopGroup, {
   ShopGroupState
 } from 'app/entities/shop-group/shop-group.reducer';
 // prettier-ignore
-import group, {
-  GroupState
-} from 'app/entities/group/group.reducer';
-// prettier-ignore
-import message, {
-  MessageState
-} from 'app/entities/message/message.reducer';
-// prettier-ignore
-import groupInvitation, {
-  GroupInvitationState
-} from 'app/entities/group-invitation/group-invitation.reducer';
-// prettier-ignore
-import friendRequest, {
-  FriendRequestState
-} from 'app/entities/friend-request/friend-request.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -64,10 +49,6 @@ export interface IRootState {
   readonly product: ProductState;
   readonly offer: OfferState;
   readonly shopGroup: ShopGroupState;
-  readonly group: GroupState;
-  readonly message: MessageState;
-  readonly groupInvitation: GroupInvitationState;
-  readonly friendRequest: FriendRequestState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -87,10 +68,6 @@ const rootReducer = combineReducers<IRootState>({
   product,
   offer,
   shopGroup,
-  group,
-  message,
-  groupInvitation,
-  friendRequest,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 });
