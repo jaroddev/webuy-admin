@@ -6,6 +6,11 @@
     {
       "fieldName": "name",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "logo",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
     }
   ],
   "changelogDate": "20200527023645",
@@ -16,5 +21,8 @@
   "databaseType": "sql",
   "readOnly": false,
   "jpaMetamodelFiltering": false,
-  "pagination": "no"
+  "pagination": "no",
+  "name": "ShopGroup",
+  "embedded": false,
+  "applications": ["WeBuy"]
 }

@@ -38,6 +38,9 @@ public class AddressResourceIT {
     private static final String DEFAULT_DEPARTMENT = "AAAAAAAAAA";
     private static final String UPDATED_DEPARTMENT = "BBBBBBBBBB";
 
+    private static final String DEFAULT_COUNTRY = "AAAAAAAAAA";
+    private static final String UPDATED_COUNTRY = "BBBBBBBBBB";
+
     @Autowired
     private AddressRepository addressRepository;
 
@@ -59,7 +62,8 @@ public class AddressResourceIT {
         Address address = new Address()
             .city(DEFAULT_CITY)
             .postalCode(DEFAULT_POSTAL_CODE)
-            .department(DEFAULT_DEPARTMENT);
+            .department(DEFAULT_DEPARTMENT)
+            .country(DEFAULT_COUNTRY);
         return address;
     }
     /**
@@ -72,7 +76,8 @@ public class AddressResourceIT {
         Address address = new Address()
             .city(UPDATED_CITY)
             .postalCode(UPDATED_POSTAL_CODE)
-            .department(UPDATED_DEPARTMENT);
+            .department(UPDATED_DEPARTMENT)
+            .country(UPDATED_COUNTRY);
         return address;
     }
 
@@ -98,6 +103,7 @@ public class AddressResourceIT {
         assertThat(testAddress.getCity()).isEqualTo(DEFAULT_CITY);
         assertThat(testAddress.getPostalCode()).isEqualTo(DEFAULT_POSTAL_CODE);
         assertThat(testAddress.getDepartment()).isEqualTo(DEFAULT_DEPARTMENT);
+        assertThat(testAddress.getCountry()).isEqualTo(DEFAULT_COUNTRY);
     }
 
     @Test
@@ -133,7 +139,8 @@ public class AddressResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(address.getId().intValue())))
             .andExpect(jsonPath("$.[*].city").value(hasItem(DEFAULT_CITY)))
             .andExpect(jsonPath("$.[*].postalCode").value(hasItem(DEFAULT_POSTAL_CODE)))
-            .andExpect(jsonPath("$.[*].department").value(hasItem(DEFAULT_DEPARTMENT)));
+            .andExpect(jsonPath("$.[*].department").value(hasItem(DEFAULT_DEPARTMENT)))
+            .andExpect(jsonPath("$.[*].country").value(hasItem(DEFAULT_COUNTRY)));
     }
     
     @Test
@@ -149,7 +156,8 @@ public class AddressResourceIT {
             .andExpect(jsonPath("$.id").value(address.getId().intValue()))
             .andExpect(jsonPath("$.city").value(DEFAULT_CITY))
             .andExpect(jsonPath("$.postalCode").value(DEFAULT_POSTAL_CODE))
-            .andExpect(jsonPath("$.department").value(DEFAULT_DEPARTMENT));
+            .andExpect(jsonPath("$.department").value(DEFAULT_DEPARTMENT))
+            .andExpect(jsonPath("$.country").value(DEFAULT_COUNTRY));
     }
     @Test
     @Transactional
@@ -174,7 +182,8 @@ public class AddressResourceIT {
         updatedAddress
             .city(UPDATED_CITY)
             .postalCode(UPDATED_POSTAL_CODE)
-            .department(UPDATED_DEPARTMENT);
+            .department(UPDATED_DEPARTMENT)
+            .country(UPDATED_COUNTRY);
 
         restAddressMockMvc.perform(put("/api/addresses")
             .contentType(MediaType.APPLICATION_JSON)
@@ -188,6 +197,7 @@ public class AddressResourceIT {
         assertThat(testAddress.getCity()).isEqualTo(UPDATED_CITY);
         assertThat(testAddress.getPostalCode()).isEqualTo(UPDATED_POSTAL_CODE);
         assertThat(testAddress.getDepartment()).isEqualTo(UPDATED_DEPARTMENT);
+        assertThat(testAddress.getCountry()).isEqualTo(UPDATED_COUNTRY);
     }
 
     @Test

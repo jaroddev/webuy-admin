@@ -7,6 +7,8 @@ import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipste
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
+import { IShopGroup } from 'app/shared/model/shop-group.model';
+import { getEntities as getShopGroups } from 'app/entities/shop-group/shop-group.reducer';
 import { IAddress } from 'app/shared/model/address.model';
 import { getEntities as getAddresses } from 'app/entities/address/address.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './shop.reducer';
@@ -17,10 +19,11 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 export interface IShopUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const ShopUpdate = (props: IShopUpdateProps) => {
+  const [shopGroupId, setShopGroupId] = useState('0');
   const [addressId, setAddressId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { shopEntity, addresses, loading, updating } = props;
+  const { shopEntity, shopGroups, addresses, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/shop');
@@ -33,6 +36,7 @@ export const ShopUpdate = (props: IShopUpdateProps) => {
       props.getEntity(props.match.params.id);
     }
 
+    props.getShopGroups();
     props.getAddresses();
   }, []);
 
@@ -77,6 +81,19 @@ export const ShopUpdate = (props: IShopUpdateProps) => {
                 </AvGroup>
               ) : null}
               <AvGroup>
+                <Label for="shop-shopGroup">Shop Group</Label>
+                <AvInput id="shop-shopGroup" type="select" className="form-control" name="shopGroup.id">
+                  <option value="" key="0" />
+                  {shopGroups
+                    ? shopGroups.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.name}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
                 <Label for="shop-address">Address</Label>
                 <AvInput id="shop-address" type="select" className="form-control" name="address.id">
                   <option value="" key="0" />
@@ -108,6 +125,7 @@ export const ShopUpdate = (props: IShopUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
+  shopGroups: storeState.shopGroup.entities,
   addresses: storeState.address.entities,
   shopEntity: storeState.shop.entity,
   loading: storeState.shop.loading,
@@ -116,6 +134,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
+  getShopGroups,
   getAddresses,
   getEntity,
   updateEntity,

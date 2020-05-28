@@ -36,6 +36,7 @@ export const Address = (props: IAddressProps) => {
                 <th>City</th>
                 <th>Postal Code</th>
                 <th>Department</th>
+                <th>Country</th>
                 <th />
               </tr>
             </thead>
@@ -50,6 +51,7 @@ export const Address = (props: IAddressProps) => {
                   <td>{address.city}</td>
                   <td>{address.postalCode}</td>
                   <td>{address.department}</td>
+                  <td>{address.country}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${address.id}`} color="info" size="sm">

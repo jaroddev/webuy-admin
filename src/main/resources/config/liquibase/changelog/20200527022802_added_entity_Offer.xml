@@ -16,7 +16,22 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="start" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="end" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="discount_price" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="discount_quantity" type="integer">
+                <constraints nullable="true" />
+            </column>
             <column name="product_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="shop_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
@@ -42,6 +57,10 @@
                   separator=";"
                   tableName="offer">
             <column name="id" type="numeric"/>
+            <column name="start" type="date"/>
+            <column name="end" type="date"/>
+            <column name="discount_price" type="numeric"/>
+            <column name="discount_quantity" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

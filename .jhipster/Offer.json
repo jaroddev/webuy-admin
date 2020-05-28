@@ -3,14 +3,38 @@
   "clientRootFolder": "",
   "relationships": [
     {
-      "relationshipName": "product",
-      "otherEntityName": "product",
       "relationshipType": "many-to-one",
-      "otherEntityField": "name",
-      "otherEntityRelationshipName": "offer"
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "offer",
+      "relationshipName": "product",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "shop",
+      "otherEntityRelationshipName": "offer",
+      "relationshipName": "shop",
+      "otherEntityField": "id"
     }
   ],
-  "fields": [],
+  "fields": [
+    {
+      "fieldName": "start",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "end",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "discountPrice",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "discountQuantity",
+      "fieldType": "Integer"
+    }
+  ],
   "changelogDate": "20200527022802",
   "dto": "no",
   "searchEngine": false,
@@ -19,5 +43,8 @@
   "databaseType": "sql",
   "readOnly": false,
   "jpaMetamodelFiltering": false,
-  "pagination": "infinite-scroll"
+  "pagination": "infinite-scroll",
+  "name": "Offer",
+  "embedded": false,
+  "applications": ["WeBuy"]
 }

@@ -3,7 +3,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
-import { ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
+import { ICrudGetAllAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -94,8 +94,23 @@ export const Offer = (props: IOfferProps) => {
                   <th className="hand" onClick={sort('id')}>
                     ID <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('start')}>
+                    Start <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('end')}>
+                    End <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('discountPrice')}>
+                    Discount Price <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('discountQuantity')}>
+                    Discount Quantity <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th>
                     Product <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th>
+                    Shop <FontAwesomeIcon icon="sort" />
                   </th>
                   <th />
                 </tr>
@@ -108,7 +123,12 @@ export const Offer = (props: IOfferProps) => {
                         {offer.id}
                       </Button>
                     </td>
+                    <td>{offer.start ? <TextFormat type="date" value={offer.start} format={APP_LOCAL_DATE_FORMAT} /> : null}</td>
+                    <td>{offer.end ? <TextFormat type="date" value={offer.end} format={APP_LOCAL_DATE_FORMAT} /> : null}</td>
+                    <td>{offer.discountPrice}</td>
+                    <td>{offer.discountQuantity}</td>
                     <td>{offer.product ? <Link to={`product/${offer.product.id}`}>{offer.product.name}</Link> : ''}</td>
+                    <td>{offer.shop ? <Link to={`shop/${offer.shop.id}`}>{offer.shop.id}</Link> : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${offer.id}`} color="info" size="sm">

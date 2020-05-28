@@ -11,5 +11,8 @@
   "databaseType": "sql",
   "readOnly": false,
   "jpaMetamodelFiltering": false,
-  "pagination": "no"
+  "pagination": "no",
+  "name": "Message",
+  "embedded": false,
+  "applications": ["WeBuy"]
 }

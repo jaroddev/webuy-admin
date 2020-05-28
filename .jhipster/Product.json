@@ -1,11 +1,32 @@
 {
   "fluentMethods": true,
   "clientRootFolder": "",
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "shop",
+      "otherEntityRelationshipName": "products",
+      "relationshipName": "shop",
+      "otherEntityField": "id"
+    }
+  ],
   "fields": [
     {
       "fieldName": "name",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "stock",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "logo",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
     }
   ],
   "changelogDate": "20200527020234",
@@ -16,5 +37,8 @@
   "databaseType": "sql",
   "readOnly": false,
   "jpaMetamodelFiltering": false,
-  "pagination": "infinite-scroll"
+  "pagination": "infinite-scroll",
+  "name": "Product",
+  "embedded": false,
+  "applications": ["WeBuy"]
 }

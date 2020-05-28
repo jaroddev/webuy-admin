@@ -14,6 +14,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,6 +30,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @WithMockUser
 public class OfferResourceIT {
+
+    private static final LocalDate DEFAULT_START = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_START = LocalDate.now(ZoneId.systemDefault());
+
+    private static final LocalDate DEFAULT_END = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_END = LocalDate.now(ZoneId.systemDefault());
+
+    private static final Double DEFAULT_DISCOUNT_PRICE = 1D;
+    private static final Double UPDATED_DISCOUNT_PRICE = 2D;
+
+    private static final Integer DEFAULT_DISCOUNT_QUANTITY = 1;
+    private static final Integer UPDATED_DISCOUNT_QUANTITY = 2;
 
     @Autowired
     private OfferRepository offerRepository;
@@ -47,7 +61,11 @@ public class OfferResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Offer createEntity(EntityManager em) {
-        Offer offer = new Offer();
+        Offer offer = new Offer()
+            .start(DEFAULT_START)
+            .end(DEFAULT_END)
+            .discountPrice(DEFAULT_DISCOUNT_PRICE)
+            .discountQuantity(DEFAULT_DISCOUNT_QUANTITY);
         return offer;
     }
     /**
@@ -57,7 +75,11 @@ public class OfferResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Offer createUpdatedEntity(EntityManager em) {
-        Offer offer = new Offer();
+        Offer offer = new Offer()
+            .start(UPDATED_START)
+            .end(UPDATED_END)
+            .discountPrice(UPDATED_DISCOUNT_PRICE)
+            .discountQuantity(UPDATED_DISCOUNT_QUANTITY);
         return offer;
     }
 
@@ -80,6 +102,10 @@ public class OfferResourceIT {
         List<Offer> offerList = offerRepository.findAll();
         assertThat(offerList).hasSize(databaseSizeBeforeCreate + 1);
         Offer testOffer = offerList.get(offerList.size() - 1);
+        assertThat(testOffer.getStart()).isEqualTo(DEFAULT_START);
+        assertThat(testOffer.getEnd()).isEqualTo(DEFAULT_END);
+        assertThat(testOffer.getDiscountPrice()).isEqualTo(DEFAULT_DISCOUNT_PRICE);
+        assertThat(testOffer.getDiscountQuantity()).isEqualTo(DEFAULT_DISCOUNT_QUANTITY);
     }
 
     @Test
@@ -112,7 +138,11 @@ public class OfferResourceIT {
         restOfferMockMvc.perform(get("/api/offers?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(offer.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(offer.getId().intValue())))
+            .andExpect(jsonPath("$.[*].start").value(hasItem(DEFAULT_START.toString())))
+            .andExpect(jsonPath("$.[*].end").value(hasItem(DEFAULT_END.toString())))
+            .andExpect(jsonPath("$.[*].discountPrice").value(hasItem(DEFAULT_DISCOUNT_PRICE.doubleValue())))
+            .andExpect(jsonPath("$.[*].discountQuantity").value(hasItem(DEFAULT_DISCOUNT_QUANTITY)));
     }
     
     @Test
@@ -125,7 +155,11 @@ public class OfferResourceIT {
         restOfferMockMvc.perform(get("/api/offers/{id}", offer.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(offer.getId().intValue()));
+            .andExpect(jsonPath("$.id").value(offer.getId().intValue()))
+            .andExpect(jsonPath("$.start").value(DEFAULT_START.toString()))
+            .andExpect(jsonPath("$.end").value(DEFAULT_END.toString()))
+            .andExpect(jsonPath("$.discountPrice").value(DEFAULT_DISCOUNT_PRICE.doubleValue()))
+            .andExpect(jsonPath("$.discountQuantity").value(DEFAULT_DISCOUNT_QUANTITY));
     }
     @Test
     @Transactional
@@ -147,6 +181,11 @@ public class OfferResourceIT {
         Offer updatedOffer = offerRepository.findById(offer.getId()).get();
         // Disconnect from session so that the updates on updatedOffer are not directly saved in db
         em.detach(updatedOffer);
+        updatedOffer
+            .start(UPDATED_START)
+            .end(UPDATED_END)
+            .discountPrice(UPDATED_DISCOUNT_PRICE)
+            .discountQuantity(UPDATED_DISCOUNT_QUANTITY);
 
         restOfferMockMvc.perform(put("/api/offers")
             .contentType(MediaType.APPLICATION_JSON)
@@ -157,6 +196,10 @@ public class OfferResourceIT {
         List<Offer> offerList = offerRepository.findAll();
         assertThat(offerList).hasSize(databaseSizeBeforeUpdate);
         Offer testOffer = offerList.get(offerList.size() - 1);
+        assertThat(testOffer.getStart()).isEqualTo(UPDATED_START);
+        assertThat(testOffer.getEnd()).isEqualTo(UPDATED_END);
+        assertThat(testOffer.getDiscountPrice()).isEqualTo(UPDATED_DISCOUNT_PRICE);
+        assertThat(testOffer.getDiscountQuantity()).isEqualTo(UPDATED_DISCOUNT_QUANTITY);
     }
 
     @Test

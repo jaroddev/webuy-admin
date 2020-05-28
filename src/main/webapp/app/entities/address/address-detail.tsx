@@ -37,6 +37,10 @@ export const AddressDetail = (props: IAddressDetailProps) => {
             <span id="department">Department</span>
           </dt>
           <dd>{addressEntity.department}</dd>
+          <dt>
+            <span id="country">Country</span>
+          </dt>
+          <dd>{addressEntity.country}</dd>
         </dl>
         <Button tag={Link} to="/address" replace color="info">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

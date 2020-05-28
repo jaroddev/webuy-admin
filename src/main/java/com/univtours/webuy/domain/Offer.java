@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * A Offer.
@@ -19,9 +20,25 @@ public class Offer implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "start")
+    private LocalDate start;
+
+    @Column(name = "end")
+    private LocalDate end;
+
+    @Column(name = "discount_price")
+    private Double discountPrice;
+
+    @Column(name = "discount_quantity")
+    private Integer discountQuantity;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "offers", allowSetters = true)
     private Product product;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "offers", allowSetters = true)
+    private Shop shop;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -30,6 +47,58 @@ public class Offer implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDate getStart() {
+        return start;
+    }
+
+    public Offer start(LocalDate start) {
+        this.start = start;
+        return this;
+    }
+
+    public void setStart(LocalDate start) {
+        this.start = start;
+    }
+
+    public LocalDate getEnd() {
+        return end;
+    }
+
+    public Offer end(LocalDate end) {
+        this.end = end;
+        return this;
+    }
+
+    public void setEnd(LocalDate end) {
+        this.end = end;
+    }
+
+    public Double getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public Offer discountPrice(Double discountPrice) {
+        this.discountPrice = discountPrice;
+        return this;
+    }
+
+    public void setDiscountPrice(Double discountPrice) {
+        this.discountPrice = discountPrice;
+    }
+
+    public Integer getDiscountQuantity() {
+        return discountQuantity;
+    }
+
+    public Offer discountQuantity(Integer discountQuantity) {
+        this.discountQuantity = discountQuantity;
+        return this;
+    }
+
+    public void setDiscountQuantity(Integer discountQuantity) {
+        this.discountQuantity = discountQuantity;
     }
 
     public Product getProduct() {
@@ -43,6 +112,19 @@ public class Offer implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public Offer shop(Shop shop) {
+        this.shop = shop;
+        return this;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
@@ -67,6 +149,10 @@ public class Offer implements Serializable {
     public String toString() {
         return "Offer{" +
             "id=" + getId() +
+            ", start='" + getStart() + "'" +
+            ", end='" + getEnd() + "'" +
+            ", discountPrice=" + getDiscountPrice() +
+            ", discountQuantity=" + getDiscountQuantity() +
             "}";
     }
 }

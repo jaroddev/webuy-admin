@@ -11,5 +11,8 @@
   "databaseType": "sql",
   "readOnly": false,
   "jpaMetamodelFiltering": false,
-  "pagination": "infinite-scroll"
+  "pagination": "infinite-scroll",
+  "name": "Group",
+  "embedded": false,
+  "applications": ["WeBuy"]
 }

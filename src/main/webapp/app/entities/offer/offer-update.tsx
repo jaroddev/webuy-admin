@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
 import { IProduct } from 'app/shared/model/product.model';
 import { getEntities as getProducts } from 'app/entities/product/product.reducer';
+import { IShop } from 'app/shared/model/shop.model';
+import { getEntities as getShops } from 'app/entities/shop/shop.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './offer.reducer';
 import { IOffer } from 'app/shared/model/offer.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -18,9 +20,10 @@ export interface IOfferUpdateProps extends StateProps, DispatchProps, RouteCompo
 
 export const OfferUpdate = (props: IOfferUpdateProps) => {
   const [productId, setProductId] = useState('0');
+  const [shopId, setShopId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { offerEntity, products, loading, updating } = props;
+  const { offerEntity, products, shops, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/offer');
@@ -32,6 +35,7 @@ export const OfferUpdate = (props: IOfferUpdateProps) => {
     }
 
     props.getProducts();
+    props.getShops();
   }, []);
 
   useEffect(() => {
@@ -75,6 +79,30 @@ export const OfferUpdate = (props: IOfferUpdateProps) => {
                 </AvGroup>
               ) : null}
               <AvGroup>
+                <Label id="startLabel" for="offer-start">
+                  Start
+                </Label>
+                <AvField id="offer-start" type="date" className="form-control" name="start" />
+              </AvGroup>
+              <AvGroup>
+                <Label id="endLabel" for="offer-end">
+                  End
+                </Label>
+                <AvField id="offer-end" type="date" className="form-control" name="end" />
+              </AvGroup>
+              <AvGroup>
+                <Label id="discountPriceLabel" for="offer-discountPrice">
+                  Discount Price
+                </Label>
+                <AvField id="offer-discountPrice" type="string" className="form-control" name="discountPrice" />
+              </AvGroup>
+              <AvGroup>
+                <Label id="discountQuantityLabel" for="offer-discountQuantity">
+                  Discount Quantity
+                </Label>
+                <AvField id="offer-discountQuantity" type="string" className="form-control" name="discountQuantity" />
+              </AvGroup>
+              <AvGroup>
                 <Label for="offer-product">Product</Label>
                 <AvInput id="offer-product" type="select" className="form-control" name="product.id">
                   <option value="" key="0" />
@@ -82,6 +110,19 @@ export const OfferUpdate = (props: IOfferUpdateProps) => {
                     ? products.map(otherEntity => (
                         <option value={otherEntity.id} key={otherEntity.id}>
                           {otherEntity.name}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label for="offer-shop">Shop</Label>
+                <AvInput id="offer-shop" type="select" className="form-control" name="shop.id">
+                  <option value="" key="0" />
+                  {shops
+                    ? shops.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
                         </option>
                       ))
                     : null}
@@ -107,6 +148,7 @@ export const OfferUpdate = (props: IOfferUpdateProps) => {
 
 const mapStateToProps = (storeState: IRootState) => ({
   products: storeState.product.entities,
+  shops: storeState.shop.entities,
   offerEntity: storeState.offer.entity,
   loading: storeState.offer.loading,
   updating: storeState.offer.updating,
@@ -115,6 +157,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 
 const mapDispatchToProps = {
   getProducts,
+  getShops,
   getEntity,
   updateEntity,
   createEntity,

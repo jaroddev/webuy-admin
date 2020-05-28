@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
 import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
+import { ICrudGetAction, ICrudGetAllAction, setFileData, openFile, byteSize, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { getEntity, updateEntity, createEntity, reset } from './shop-group.reducer';
+import { getEntity, updateEntity, createEntity, setBlob, reset } from './shop-group.reducer';
 import { IShopGroup } from 'app/shared/model/shop-group.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
@@ -18,6 +18,8 @@ export const ShopGroupUpdate = (props: IShopGroupUpdateProps) => {
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
   const { shopGroupEntity, loading, updating } = props;
+
+  const { logo, logoContentType } = shopGroupEntity;
 
   const handleClose = () => {
     props.history.push('/shop-group');
@@ -30,6 +32,14 @@ export const ShopGroupUpdate = (props: IShopGroupUpdateProps) => {
       props.getEntity(props.match.params.id);
     }
   }, []);
+
+  const onBlobChange = (isAnImage, name) => event => {
+    setFileData(event, (contentType, data) => props.setBlob(name, data, contentType), isAnImage);
+  };
+
+  const clearBlob = name => () => {
+    props.setBlob(name, undefined, undefined);
+  };
 
   useEffect(() => {
     if (props.updateSuccess) {
@@ -77,6 +87,38 @@ export const ShopGroupUpdate = (props: IShopGroupUpdateProps) => {
                 </Label>
                 <AvField id="shop-group-name" type="text" name="name" />
               </AvGroup>
+              <AvGroup>
+                <AvGroup>
+                  <Label id="logoLabel" for="logo">
+                    Logo
+                  </Label>
+                  <br />
+                  {logo ? (
+                    <div>
+                      {logoContentType ? (
+                        <a onClick={openFile(logoContentType, logo)}>
+                          <img src={`data:${logoContentType};base64,${logo}`} style={{ maxHeight: '100px' }} />
+                        </a>
+                      ) : null}
+                      <br />
+                      <Row>
+                        <Col md="11">
+                          <span>
+                            {logoContentType}, {byteSize(logo)}
+                          </span>
+                        </Col>
+                        <Col md="1">
+                          <Button color="danger" onClick={clearBlob('logo')}>
+                            <FontAwesomeIcon icon="times-circle" />
+                          </Button>
+                        </Col>
+                      </Row>
+                    </div>
+                  ) : null}
+                  <input id="file_logo" type="file" onChange={onBlobChange(true, 'logo')} accept="image/*" />
+                  <AvInput type="hidden" name="logo" value={logo} />
+                </AvGroup>
+              </AvGroup>
               <Button tag={Link} id="cancel-save" to="/shop-group" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
@@ -105,6 +147,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 const mapDispatchToProps = {
   getEntity,
   updateEntity,
+  setBlob,
   createEntity,
   reset,
 };

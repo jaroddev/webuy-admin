@@ -3,7 +3,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
-import { ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
+import { openFile, byteSize, ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -97,6 +97,18 @@ export const Product = (props: IProductProps) => {
                   <th className="hand" onClick={sort('name')}>
                     Name <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('price')}>
+                    Price <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('stock')}>
+                    Stock <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('logo')}>
+                    Logo <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th>
+                    Shop <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th />
                 </tr>
               </thead>
@@ -109,6 +121,24 @@ export const Product = (props: IProductProps) => {
                       </Button>
                     </td>
                     <td>{product.name}</td>
+                    <td>{product.price}</td>
+                    <td>{product.stock}</td>
+                    <td>
+                      {product.logo ? (
+                        <div>
+                          {product.logoContentType ? (
+                            <a onClick={openFile(product.logoContentType, product.logo)}>
+                              <img src={`data:${product.logoContentType};base64,${product.logo}`} style={{ maxHeight: '30px' }} />
+                              &nbsp;
+                            </a>
+                          ) : null}
+                          <span>
+                            {product.logoContentType}, {byteSize(product.logo)}
+                          </span>
+                        </div>
+                      ) : null}
+                    </td>
+                    <td>{product.shop ? <Link to={`shop/${product.shop.id}`}>{product.shop.id}</Link> : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${product.id}`} color="info" size="sm">

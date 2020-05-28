@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
-import { ICrudGetAction } from 'react-jhipster';
+import { ICrudGetAction, openFile, byteSize } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -29,6 +29,33 @@ export const ProductDetail = (props: IProductDetailProps) => {
             <span id="name">Name</span>
           </dt>
           <dd>{productEntity.name}</dd>
+          <dt>
+            <span id="price">Price</span>
+          </dt>
+          <dd>{productEntity.price}</dd>
+          <dt>
+            <span id="stock">Stock</span>
+          </dt>
+          <dd>{productEntity.stock}</dd>
+          <dt>
+            <span id="logo">Logo</span>
+          </dt>
+          <dd>
+            {productEntity.logo ? (
+              <div>
+                {productEntity.logoContentType ? (
+                  <a onClick={openFile(productEntity.logoContentType, productEntity.logo)}>
+                    <img src={`data:${productEntity.logoContentType};base64,${productEntity.logo}`} style={{ maxHeight: '30px' }} />
+                  </a>
+                ) : null}
+                <span>
+                  {productEntity.logoContentType}, {byteSize(productEntity.logo)}
+                </span>
+              </div>
+            ) : null}
+          </dd>
+          <dt>Shop</dt>
+          <dd>{productEntity.shop ? productEntity.shop.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/product" replace color="info">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

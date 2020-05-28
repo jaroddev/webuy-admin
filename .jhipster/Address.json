@@ -14,6 +14,10 @@
     {
       "fieldName": "department",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "country",
+      "fieldType": "String"
     }
   ],
   "changelogDate": "20200527014940",
@@ -24,5 +28,8 @@
   "databaseType": "sql",
   "readOnly": false,
   "jpaMetamodelFiltering": false,
-  "pagination": "no"
+  "pagination": "no",
+  "name": "Address",
+  "embedded": false,
+  "applications": ["WeBuy"]
 }

@@ -33,6 +33,7 @@ export const Shop = (props: IShopProps) => {
             <thead>
               <tr>
                 <th>ID</th>
+                <th>Shop Group</th>
                 <th>Address</th>
                 <th />
               </tr>
@@ -45,6 +46,7 @@ export const Shop = (props: IShopProps) => {
                       {shop.id}
                     </Button>
                   </td>
+                  <td>{shop.shopGroup ? <Link to={`shop-group/${shop.shopGroup.id}`}>{shop.shopGroup.name}</Link> : ''}</td>
                   <td>{shop.address ? <Link to={`address/${shop.address.id}`}>{shop.address.city}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

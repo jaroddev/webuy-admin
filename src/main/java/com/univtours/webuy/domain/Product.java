@@ -1,5 +1,6 @@
 package com.univtours.webuy.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
@@ -21,6 +22,16 @@ public class Product implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "price")
+    private Double price;
+
+    @Column(name = "stock")
+    private Integer stock;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "products", allowSetters = true)
+    private Shop shop;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -41,6 +52,45 @@ public class Product implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public Product price(Double price) {
+        this.price = price;
+        return this;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public Product stock(Integer stock) {
+        this.stock = stock;
+        return this;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public Product shop(Shop shop) {
+        this.shop = shop;
+        return this;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
@@ -66,6 +116,8 @@ public class Product implements Serializable {
         return "Product{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", price=" + getPrice() +
+            ", stock=" + getStock() +
             "}";
     }
 }

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
-import { ICrudGetAction } from 'react-jhipster';
+import { ICrudGetAction, openFile, byteSize } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -29,6 +29,23 @@ export const ShopGroupDetail = (props: IShopGroupDetailProps) => {
             <span id="name">Name</span>
           </dt>
           <dd>{shopGroupEntity.name}</dd>
+          <dt>
+            <span id="logo">Logo</span>
+          </dt>
+          <dd>
+            {shopGroupEntity.logo ? (
+              <div>
+                {shopGroupEntity.logoContentType ? (
+                  <a onClick={openFile(shopGroupEntity.logoContentType, shopGroupEntity.logo)}>
+                    <img src={`data:${shopGroupEntity.logoContentType};base64,${shopGroupEntity.logo}`} style={{ maxHeight: '30px' }} />
+                  </a>
+                ) : null}
+                <span>
+                  {shopGroupEntity.logoContentType}, {byteSize(shopGroupEntity.logo)}
+                </span>
+              </div>
+            ) : null}
+          </dd>
         </dl>
         <Button tag={Link} to="/shop-group" replace color="info">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

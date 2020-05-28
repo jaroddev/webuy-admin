@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
-import { ICrudGetAllAction } from 'react-jhipster';
+import { openFile, byteSize, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -34,6 +34,7 @@ export const ShopGroup = (props: IShopGroupProps) => {
               <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Logo</th>
                 <th />
               </tr>
             </thead>
@@ -46,6 +47,21 @@ export const ShopGroup = (props: IShopGroupProps) => {
                     </Button>
                   </td>
                   <td>{shopGroup.name}</td>
+                  <td>
+                    {shopGroup.logo ? (
+                      <div>
+                        {shopGroup.logoContentType ? (
+                          <a onClick={openFile(shopGroup.logoContentType, shopGroup.logo)}>
+                            <img src={`data:${shopGroup.logoContentType};base64,${shopGroup.logo}`} style={{ maxHeight: '30px' }} />
+                            &nbsp;
+                          </a>
+                        ) : null}
+                        <span>
+                          {shopGroup.logoContentType}, {byteSize(shopGroup.logo)}
+                        </span>
+                      </div>
+                    ) : null}
+                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${shopGroup.id}`} color="info" size="sm">

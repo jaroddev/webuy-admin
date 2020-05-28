@@ -35,6 +35,13 @@
     "otherModules": [],
     "enableTranslation": false,
     "blueprints": [],
-    "lastLiquibaseTimestamp": 1590551856000
-  }
+    "lastLiquibaseTimestamp": 1590551856000,
+    "skipUserManagement": false,
+    "enableHibernateCache": false,
+    "languages": ["en", "fr"],
+    "nativeLanguage": "en",
+    "skipClient": false,
+    "skipServer": false
+  },
+  "entities": ["Address", "FriendRequest", "Group", "GroupInvitation", "Message", "Offer", "Product", "Shop", "ShopGroup"]
 }

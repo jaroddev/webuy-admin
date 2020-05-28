@@ -1,7 +1,24 @@
 {
   "fluentMethods": true,
   "clientRootFolder": "",
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipName": "receiver",
+      "otherEntityName": "user",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "login",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "friendRequest"
+    },
+    {
+      "relationshipName": "sender",
+      "otherEntityName": "user",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "login",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "friendRequest"
+    }
+  ],
   "fields": [],
   "changelogDate": "20200527035736",
   "dto": "no",
@@ -11,5 +28,8 @@
   "databaseType": "sql",
   "readOnly": false,
   "jpaMetamodelFiltering": false,
-  "pagination": "no"
+  "pagination": "no",
+  "name": "FriendRequest",
+  "embedded": false,
+  "applications": ["WeBuy"]
 }

@@ -89,6 +89,12 @@ export const AddressUpdate = (props: IAddressUpdateProps) => {
                 </Label>
                 <AvField id="address-department" type="text" name="department" />
               </AvGroup>
+              <AvGroup>
+                <Label id="countryLabel" for="address-country">
+                  Country
+                </Label>
+                <AvField id="address-country" type="text" name="country" />
+              </AvGroup>
               <Button tag={Link} id="cancel-save" to="/address" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

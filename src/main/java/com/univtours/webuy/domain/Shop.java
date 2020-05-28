@@ -21,15 +21,19 @@ public class Shop implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToMany(mappedBy = "shop")
+    private Set<Offer> offers = new HashSet<>();
+
+    @OneToMany(mappedBy = "shop")
+    private Set<Product> products = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "shops", allowSetters = true)
+    private ShopGroup shopGroup;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "shops", allowSetters = true)
     private Address address;
-
-    @OneToMany(mappedBy = "")
-    private Set<Product> products = new HashSet<>();
-
-    @OneToMany(mappedBy = "")
-    private Set<Offer> offers = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -40,17 +44,29 @@ public class Shop implements Serializable {
         this.id = id;
     }
 
-    public Address getAddress() {
-        return address;
+    public Set<Offer> getOffers() {
+        return offers;
     }
 
-    public Shop address(Address address) {
-        this.address = address;
+    public Shop offers(Set<Offer> offers) {
+        this.offers = offers;
         return this;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public Shop addOffer(Offer offer) {
+        this.offers.add(offer);
+        offer.setShop(this);
+        return this;
+    }
+
+    public Shop removeOffer(Offer offer) {
+        this.offers.remove(offer);
+        offer.setShop(null);
+        return this;
+    }
+
+    public void setOffers(Set<Offer> offers) {
+        this.offers = offers;
     }
 
     public Set<Product> getProducts() {
@@ -64,13 +80,13 @@ public class Shop implements Serializable {
 
     public Shop addProducts(Product product) {
         this.products.add(product);
-        product.set(this);
+        product.setShop(this);
         return this;
     }
 
     public Shop removeProducts(Product product) {
         this.products.remove(product);
-        product.set(null);
+        product.setShop(null);
         return this;
     }
 
@@ -78,29 +94,30 @@ public class Shop implements Serializable {
         this.products = products;
     }
 
-    public Set<Offer> getOffers() {
-        return offers;
+    public ShopGroup getShopGroup() {
+        return shopGroup;
     }
 
-    public Shop offers(Set<Offer> offers) {
-        this.offers = offers;
+    public Shop shopGroup(ShopGroup shopGroup) {
+        this.shopGroup = shopGroup;
         return this;
     }
 
-    public Shop addOffers(Offer offer) {
-        this.offers.add(offer);
-        offer.set(this);
+    public void setShopGroup(ShopGroup shopGroup) {
+        this.shopGroup = shopGroup;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public Shop address(Address address) {
+        this.address = address;
         return this;
     }
 
-    public Shop removeOffers(Offer offer) {
-        this.offers.remove(offer);
-        offer.set(null);
-        return this;
-    }
-
-    public void setOffers(Set<Offer> offers) {
-        this.offers = offers;
+    public void setAddress(Address address) {
+        this.address = address;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

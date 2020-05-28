@@ -27,6 +27,9 @@ public class Address implements Serializable {
     @Column(name = "department")
     private String department;
 
+    @Column(name = "country")
+    private String country;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -74,6 +77,19 @@ public class Address implements Serializable {
     public void setDepartment(String department) {
         this.department = department;
     }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public Address country(String country) {
+        this.country = country;
+        return this;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -100,6 +116,7 @@ public class Address implements Serializable {
             ", city='" + getCity() + "'" +
             ", postalCode='" + getPostalCode() + "'" +
             ", department='" + getDepartment() + "'" +
+            ", country='" + getCountry() + "'" +
             "}";
     }
 }
