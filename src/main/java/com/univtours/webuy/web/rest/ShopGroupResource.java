@@ -2,6 +2,7 @@ package com.univtours.webuy.web.rest;
 
 import com.univtours.webuy.domain.ShopGroup;
 import com.univtours.webuy.repository.ShopGroupRepository;
+import com.univtours.webuy.security.AuthoritiesConstants;
 import com.univtours.webuy.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,6 +49,7 @@ public class ShopGroupResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/shop-groups")
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<ShopGroup> createShopGroup(@RequestBody ShopGroup shopGroup) throws URISyntaxException {
         log.debug("REST request to save ShopGroup : {}", shopGroup);
         if (shopGroup.getId() != null) {
@@ -68,6 +71,7 @@ public class ShopGroupResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/shop-groups")
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<ShopGroup> updateShopGroup(@RequestBody ShopGroup shopGroup) throws URISyntaxException {
         log.debug("REST request to update ShopGroup : {}", shopGroup);
         if (shopGroup.getId() == null) {
@@ -110,6 +114,7 @@ public class ShopGroupResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/shop-groups/{id}")
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Void> deleteShopGroup(@PathVariable Long id) {
         log.debug("REST request to delete ShopGroup : {}", id);
 
