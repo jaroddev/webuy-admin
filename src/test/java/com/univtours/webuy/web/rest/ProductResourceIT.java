@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -38,6 +39,11 @@ public class ProductResourceIT {
     private static final Integer DEFAULT_STOCK = 1;
     private static final Integer UPDATED_STOCK = 2;
 
+    private static final byte[] DEFAULT_LOGO = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_LOGO = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_LOGO_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_LOGO_CONTENT_TYPE = "image/png";
+
     @Autowired
     private ProductRepository productRepository;
 
@@ -59,7 +65,9 @@ public class ProductResourceIT {
         Product product = new Product()
             .name(DEFAULT_NAME)
             .price(DEFAULT_PRICE)
-            .stock(DEFAULT_STOCK);
+            .stock(DEFAULT_STOCK)
+            .logo(DEFAULT_LOGO)
+            .logoContentType(DEFAULT_LOGO_CONTENT_TYPE);
         return product;
     }
     /**
@@ -72,7 +80,9 @@ public class ProductResourceIT {
         Product product = new Product()
             .name(UPDATED_NAME)
             .price(UPDATED_PRICE)
-            .stock(UPDATED_STOCK);
+            .stock(UPDATED_STOCK)
+            .logo(UPDATED_LOGO)
+            .logoContentType(UPDATED_LOGO_CONTENT_TYPE);
         return product;
     }
 
@@ -98,6 +108,8 @@ public class ProductResourceIT {
         assertThat(testProduct.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testProduct.getPrice()).isEqualTo(DEFAULT_PRICE);
         assertThat(testProduct.getStock()).isEqualTo(DEFAULT_STOCK);
+        assertThat(testProduct.getLogo()).isEqualTo(DEFAULT_LOGO);
+        assertThat(testProduct.getLogoContentType()).isEqualTo(DEFAULT_LOGO_CONTENT_TYPE);
     }
 
     @Test
@@ -133,7 +145,9 @@ public class ProductResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(product.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.doubleValue())))
-            .andExpect(jsonPath("$.[*].stock").value(hasItem(DEFAULT_STOCK)));
+            .andExpect(jsonPath("$.[*].stock").value(hasItem(DEFAULT_STOCK)))
+            .andExpect(jsonPath("$.[*].logoContentType").value(hasItem(DEFAULT_LOGO_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].logo").value(hasItem(Base64Utils.encodeToString(DEFAULT_LOGO))));
     }
     
     @Test
@@ -149,7 +163,9 @@ public class ProductResourceIT {
             .andExpect(jsonPath("$.id").value(product.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.doubleValue()))
-            .andExpect(jsonPath("$.stock").value(DEFAULT_STOCK));
+            .andExpect(jsonPath("$.stock").value(DEFAULT_STOCK))
+            .andExpect(jsonPath("$.logoContentType").value(DEFAULT_LOGO_CONTENT_TYPE))
+            .andExpect(jsonPath("$.logo").value(Base64Utils.encodeToString(DEFAULT_LOGO)));
     }
     @Test
     @Transactional
@@ -174,7 +190,9 @@ public class ProductResourceIT {
         updatedProduct
             .name(UPDATED_NAME)
             .price(UPDATED_PRICE)
-            .stock(UPDATED_STOCK);
+            .stock(UPDATED_STOCK)
+            .logo(UPDATED_LOGO)
+            .logoContentType(UPDATED_LOGO_CONTENT_TYPE);
 
         restProductMockMvc.perform(put("/api/products")
             .contentType(MediaType.APPLICATION_JSON)
@@ -188,6 +206,8 @@ public class ProductResourceIT {
         assertThat(testProduct.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testProduct.getPrice()).isEqualTo(UPDATED_PRICE);
         assertThat(testProduct.getStock()).isEqualTo(UPDATED_STOCK);
+        assertThat(testProduct.getLogo()).isEqualTo(UPDATED_LOGO);
+        assertThat(testProduct.getLogoContentType()).isEqualTo(UPDATED_LOGO_CONTENT_TYPE);
     }
 
     @Test

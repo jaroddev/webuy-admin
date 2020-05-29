@@ -1,11 +1,11 @@
-id;name
-1;embrace
-2;Lithuania modular
-3;driver
-4;Won 24/7 multi-byte
-5;TCP Wisconsin
-6;International
-7;National e-markets
-8;Borders invoice Computers
-9;optical Sleek
-10;Money Market Account Designer Concrete
+id;name;logo;logo_content_type
+1;embrace;../fake-data/blob/hipster.png;image/png
+2;Lithuania modular;../fake-data/blob/hipster.png;image/png
+3;driver;../fake-data/blob/hipster.png;image/png
+4;Won 24/7 multi-byte;../fake-data/blob/hipster.png;image/png
+5;TCP Wisconsin;../fake-data/blob/hipster.png;image/png
+6;International;../fake-data/blob/hipster.png;image/png
+7;National e-markets;../fake-data/blob/hipster.png;image/png
+8;Borders invoice Computers;../fake-data/blob/hipster.png;image/png
+9;optical Sleek;../fake-data/blob/hipster.png;image/png
+10;Money Market Account Designer Concrete;../fake-data/blob/hipster.png;image/png

@@ -28,6 +28,13 @@ public class Product implements Serializable {
     @Column(name = "stock")
     private Integer stock;
 
+    @Lob
+    @Column(name = "logo")
+    private byte[] logo;
+
+    @Column(name = "logo_content_type")
+    private String logoContentType;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "products", allowSetters = true)
     private Shop shop;
@@ -80,6 +87,32 @@ public class Product implements Serializable {
         this.stock = stock;
     }
 
+    public byte[] getLogo() {
+        return logo;
+    }
+
+    public Product logo(byte[] logo) {
+        this.logo = logo;
+        return this;
+    }
+
+    public void setLogo(byte[] logo) {
+        this.logo = logo;
+    }
+
+    public String getLogoContentType() {
+        return logoContentType;
+    }
+
+    public Product logoContentType(String logoContentType) {
+        this.logoContentType = logoContentType;
+        return this;
+    }
+
+    public void setLogoContentType(String logoContentType) {
+        this.logoContentType = logoContentType;
+    }
+
     public Shop getShop() {
         return shop;
     }
@@ -118,6 +151,8 @@ public class Product implements Serializable {
             ", name='" + getName() + "'" +
             ", price=" + getPrice() +
             ", stock=" + getStock() +
+            ", logo='" + getLogo() + "'" +
+            ", logoContentType='" + getLogoContentType() + "'" +
             "}";
     }
 }

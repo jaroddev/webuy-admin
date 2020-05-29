@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -31,6 +32,11 @@ public class ShopGroupResourceIT {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
+
+    private static final byte[] DEFAULT_LOGO = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_LOGO = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_LOGO_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_LOGO_CONTENT_TYPE = "image/png";
 
     @Autowired
     private ShopGroupRepository shopGroupRepository;
@@ -51,7 +57,9 @@ public class ShopGroupResourceIT {
      */
     public static ShopGroup createEntity(EntityManager em) {
         ShopGroup shopGroup = new ShopGroup()
-            .name(DEFAULT_NAME);
+            .name(DEFAULT_NAME)
+            .logo(DEFAULT_LOGO)
+            .logoContentType(DEFAULT_LOGO_CONTENT_TYPE);
         return shopGroup;
     }
     /**
@@ -62,7 +70,9 @@ public class ShopGroupResourceIT {
      */
     public static ShopGroup createUpdatedEntity(EntityManager em) {
         ShopGroup shopGroup = new ShopGroup()
-            .name(UPDATED_NAME);
+            .name(UPDATED_NAME)
+            .logo(UPDATED_LOGO)
+            .logoContentType(UPDATED_LOGO_CONTENT_TYPE);
         return shopGroup;
     }
 
@@ -86,6 +96,8 @@ public class ShopGroupResourceIT {
         assertThat(shopGroupList).hasSize(databaseSizeBeforeCreate + 1);
         ShopGroup testShopGroup = shopGroupList.get(shopGroupList.size() - 1);
         assertThat(testShopGroup.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testShopGroup.getLogo()).isEqualTo(DEFAULT_LOGO);
+        assertThat(testShopGroup.getLogoContentType()).isEqualTo(DEFAULT_LOGO_CONTENT_TYPE);
     }
 
     @Test
@@ -119,7 +131,9 @@ public class ShopGroupResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(shopGroup.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].logoContentType").value(hasItem(DEFAULT_LOGO_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].logo").value(hasItem(Base64Utils.encodeToString(DEFAULT_LOGO))));
     }
     
     @Test
@@ -133,7 +147,9 @@ public class ShopGroupResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(shopGroup.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
+            .andExpect(jsonPath("$.logoContentType").value(DEFAULT_LOGO_CONTENT_TYPE))
+            .andExpect(jsonPath("$.logo").value(Base64Utils.encodeToString(DEFAULT_LOGO)));
     }
     @Test
     @Transactional
@@ -156,7 +172,9 @@ public class ShopGroupResourceIT {
         // Disconnect from session so that the updates on updatedShopGroup are not directly saved in db
         em.detach(updatedShopGroup);
         updatedShopGroup
-            .name(UPDATED_NAME);
+            .name(UPDATED_NAME)
+            .logo(UPDATED_LOGO)
+            .logoContentType(UPDATED_LOGO_CONTENT_TYPE);
 
         restShopGroupMockMvc.perform(put("/api/shop-groups")
             .contentType(MediaType.APPLICATION_JSON)
@@ -168,6 +186,8 @@ public class ShopGroupResourceIT {
         assertThat(shopGroupList).hasSize(databaseSizeBeforeUpdate);
         ShopGroup testShopGroup = shopGroupList.get(shopGroupList.size() - 1);
         assertThat(testShopGroup.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testShopGroup.getLogo()).isEqualTo(UPDATED_LOGO);
+        assertThat(testShopGroup.getLogoContentType()).isEqualTo(UPDATED_LOGO_CONTENT_TYPE);
     }
 
     @Test

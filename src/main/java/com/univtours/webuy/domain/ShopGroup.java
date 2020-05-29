@@ -21,6 +21,13 @@ public class ShopGroup implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @Lob
+    @Column(name = "logo")
+    private byte[] logo;
+
+    @Column(name = "logo_content_type")
+    private String logoContentType;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -41,6 +48,32 @@ public class ShopGroup implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public byte[] getLogo() {
+        return logo;
+    }
+
+    public ShopGroup logo(byte[] logo) {
+        this.logo = logo;
+        return this;
+    }
+
+    public void setLogo(byte[] logo) {
+        this.logo = logo;
+    }
+
+    public String getLogoContentType() {
+        return logoContentType;
+    }
+
+    public ShopGroup logoContentType(String logoContentType) {
+        this.logoContentType = logoContentType;
+        return this;
+    }
+
+    public void setLogoContentType(String logoContentType) {
+        this.logoContentType = logoContentType;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
@@ -66,6 +99,8 @@ public class ShopGroup implements Serializable {
         return "ShopGroup{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", logo='" + getLogo() + "'" +
+            ", logoContentType='" + getLogoContentType() + "'" +
             "}";
     }
 }
