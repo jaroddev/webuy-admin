@@ -15,15 +15,4 @@ import java.util.Optional;
  * Spring Data  repository for the Group entity.
  */
 @Repository
-public interface GroupRepository extends JpaRepository<Group, Long> {
-
-    @Query(value = "select distinct group from Group group left join fetch group.members",
-        countQuery = "select count(distinct group) from Group group")
-    Page<Group> findAllWithEagerRelationships(Pageable pageable);
-
-    @Query("select distinct group from Group group left join fetch group.members")
-    List<Group> findAllWithEagerRelationships();
-
-    @Query("select group from Group group left join fetch group.members where group.id =:id")
-    Optional<Group> findOneWithEagerRelationships(@Param("id") Long id);
-}
+public interface GroupRepository extends JpaRepository<Group, Long> {}
