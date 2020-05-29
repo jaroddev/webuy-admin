@@ -1,0 +1,32 @@
+{
+  "name": "Friend",
+  "fields": [],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "friend",
+      "relationshipName": "user",
+      "otherEntityField": "login"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "friend",
+      "relationshipName": "friend",
+      "otherEntityField": "login"
+    }
+  ],
+  "changelogDate": "20200529072826",
+  "entityTableName": "friend",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["WeBuy"],
+  "skipClient": true
+}

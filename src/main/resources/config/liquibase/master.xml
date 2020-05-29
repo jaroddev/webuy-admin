@@ -23,11 +23,16 @@
     <include file="config/liquibase/changelog/20200527035155_added_entity_Message.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200527035458_added_entity_GroupInvitation.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200527035736_added_entity_FriendRequest.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200529072826_added_entity_Friend.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20200527015747_added_entity_constraints_Shop.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200527020234_added_entity_constraints_Product.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200527022802_added_entity_constraints_Offer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200527025457_added_entity_constraints_Group.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200527035155_added_entity_constraints_Message.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200527035458_added_entity_constraints_GroupInvitation.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200527035736_added_entity_constraints_FriendRequest.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200529072826_added_entity_constraints_Friend.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

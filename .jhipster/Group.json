@@ -1,7 +1,22 @@
 {
   "fluentMethods": true,
   "clientRootFolder": "",
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "message",
+      "otherEntityRelationshipName": "group",
+      "relationshipName": "messages"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "groups",
+      "relationshipName": "member",
+      "otherEntityField": "login",
+      "ownerSide": true
+    }
+  ],
   "fields": [],
   "changelogDate": "20200527025457",
   "dto": "no",
@@ -14,5 +29,6 @@
   "pagination": "infinite-scroll",
   "name": "Group",
   "embedded": false,
-  "applications": ["WeBuy"]
+  "applications": ["WeBuy"],
+  "skipClient": true
 }

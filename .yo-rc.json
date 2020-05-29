@@ -43,5 +43,5 @@
     "skipClient": false,
     "skipServer": false
   },
-  "entities": ["Address", "FriendRequest", "Group", "GroupInvitation", "Message", "Offer", "Product", "Shop", "ShopGroup"]
+  "entities": ["Address", "Friend", "FriendRequest", "Group", "GroupInvitation", "Message", "Offer", "Product", "Shop", "ShopGroup"]
 }

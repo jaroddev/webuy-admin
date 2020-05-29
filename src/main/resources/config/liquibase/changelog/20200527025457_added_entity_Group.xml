@@ -22,6 +22,17 @@
 
     <changeSet id="20200527025457-1-relations" author="jhipster">
 
+        <createTable tableName="jhi_groups_member">
+            <column name="member_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="group_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="group_id, member_id" tableName="jhi_groups_member"/>
+        
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 

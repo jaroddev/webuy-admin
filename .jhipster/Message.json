@@ -1,8 +1,32 @@
 {
   "fluentMethods": true,
   "clientRootFolder": "",
-  "relationships": [],
-  "fields": [],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "message",
+      "relationshipName": "sender",
+      "otherEntityField": "login"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "group",
+      "otherEntityRelationshipName": "messages",
+      "relationshipName": "group",
+      "otherEntityField": "id"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "sentAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "String"
+    }
+  ],
   "changelogDate": "20200527035155",
   "dto": "no",
   "searchEngine": false,
@@ -14,5 +38,6 @@
   "pagination": "no",
   "name": "Message",
   "embedded": false,
-  "applications": ["WeBuy"]
+  "applications": ["WeBuy"],
+  "skipClient": true
 }

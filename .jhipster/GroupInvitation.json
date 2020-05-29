@@ -1,7 +1,22 @@
 {
   "fluentMethods": true,
   "clientRootFolder": "",
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "groupInvitation",
+      "relationshipName": "inviting",
+      "otherEntityField": "login"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "groupInvitation",
+      "relationshipName": "invited",
+      "otherEntityField": "login"
+    }
+  ],
   "fields": [],
   "changelogDate": "20200527035458",
   "dto": "no",
@@ -14,5 +29,6 @@
   "pagination": "no",
   "name": "GroupInvitation",
   "embedded": false,
-  "applications": ["WeBuy"]
+  "applications": ["WeBuy"],
+  "skipClient": true
 }

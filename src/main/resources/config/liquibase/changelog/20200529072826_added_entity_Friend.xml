@@ -9,24 +9,24 @@
         <property name="autoIncrement" value="true"/>
 
     <!--
-        Added the entity GroupInvitation.
+        Added the entity Friend.
     -->
-    <changeSet id="20200527035458-1" author="jhipster">
-        <createTable tableName="groupinvitations">
+    <changeSet id="20200529072826-1" author="jhipster">
+        <createTable tableName="friend">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="inviting_id" type="bigint">
+            <column name="user_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="invited_id" type="bigint">
+            <column name="friend_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
 
-    <changeSet id="20200527035458-1-relations" author="jhipster">
+    <changeSet id="20200529072826-1-relations" author="jhipster">
 
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
@@ -39,11 +39,11 @@
           This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
           Spring Boot configuration key.
     -->
-    <changeSet id="20200527035458-1-data" author="jhipster" context="faker">
+    <changeSet id="20200529072826-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/groupinvitations.csv"
+                  file="config/liquibase/fake-data/friend.csv"
                   separator=";"
-                  tableName="groupinvitations">
+                  tableName="friend">
             <column name="id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

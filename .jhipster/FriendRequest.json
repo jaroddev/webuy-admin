@@ -3,20 +3,18 @@
   "clientRootFolder": "",
   "relationships": [
     {
-      "relationshipName": "receiver",
-      "otherEntityName": "user",
       "relationshipType": "many-to-one",
-      "otherEntityField": "login",
-      "ownerSide": true,
-      "otherEntityRelationshipName": "friendRequest"
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "friendRequest",
+      "relationshipName": "receiver",
+      "otherEntityField": "login"
     },
     {
-      "relationshipName": "sender",
-      "otherEntityName": "user",
       "relationshipType": "many-to-one",
-      "otherEntityField": "login",
-      "ownerSide": true,
-      "otherEntityRelationshipName": "friendRequest"
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "friendRequest",
+      "relationshipName": "sender",
+      "otherEntityField": "login"
     }
   ],
   "fields": [],
@@ -31,5 +29,6 @@
   "pagination": "no",
   "name": "FriendRequest",
   "embedded": false,
-  "applications": ["WeBuy"]
+  "applications": ["WeBuy"],
+  "skipClient": true
 }

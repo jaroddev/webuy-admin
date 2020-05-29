@@ -7,11 +7,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * A GroupInvitation.
+ * A Friend.
  */
 @Entity
-@Table(name = "groupinvitations")
-public class GroupInvitation implements Serializable {
+@Table(name = "friend")
+public class Friend implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -20,12 +20,12 @@ public class GroupInvitation implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = "groupInvitations", allowSetters = true)
-    private User inviting;
+    @JsonIgnoreProperties(value = "friends", allowSetters = true)
+    private User user;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = "groupInvitations", allowSetters = true)
-    private User invited;
+    @JsonIgnoreProperties(value = "friends", allowSetters = true)
+    private User friend;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -36,30 +36,30 @@ public class GroupInvitation implements Serializable {
         this.id = id;
     }
 
-    public User getInviting() {
-        return inviting;
+    public User getUser() {
+        return user;
     }
 
-    public GroupInvitation inviting(User user) {
-        this.inviting = user;
+    public Friend user(User user) {
+        this.user = user;
         return this;
     }
 
-    public void setInviting(User user) {
-        this.inviting = user;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public User getInvited() {
-        return invited;
+    public User getFriend() {
+        return friend;
     }
 
-    public GroupInvitation invited(User user) {
-        this.invited = user;
+    public Friend friend(User user) {
+        this.friend = user;
         return this;
     }
 
-    public void setInvited(User user) {
-        this.invited = user;
+    public void setFriend(User user) {
+        this.friend = user;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
@@ -68,10 +68,10 @@ public class GroupInvitation implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof GroupInvitation)) {
+        if (!(o instanceof Friend)) {
             return false;
         }
-        return id != null && id.equals(((GroupInvitation) o).id);
+        return id != null && id.equals(((Friend) o).id);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class GroupInvitation implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "GroupInvitation{" +
+        return "Friend{" +
             "id=" + getId() +
             "}";
     }
